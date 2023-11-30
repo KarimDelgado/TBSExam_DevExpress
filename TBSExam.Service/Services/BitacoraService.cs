@@ -16,12 +16,12 @@ namespace TBSExam.Service.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<bool> Create(string accion, DateTime date, int usuario)
+        public Task<bool> Create(string accion, int usuario)
         {
             var registro = new Bitacora
             {
                 accion = accion,
-                shipment_date = date,
+                shipment_date = DateTime.Now,
                 usuario_id = usuario
             };
             return _unitOfWork.BitacoraRepository.Create(registro);

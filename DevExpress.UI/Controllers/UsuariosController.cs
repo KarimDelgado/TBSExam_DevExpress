@@ -12,10 +12,12 @@ namespace DevExpress.UI.Controllers
     {
         private readonly IUsuarioService _usuarioService;
         private readonly ISaveService _saveService;
-        public UsuariosController(IUsuarioService usuarioService, ISaveService saveService)
+        private readonly IBitacoraService _bitacoraService;
+        public UsuariosController(IUsuarioService usuarioService, ISaveService saveService, IBitacoraService bitacoraService)
         {
             _usuarioService = usuarioService;
             _saveService = saveService;
+            _bitacoraService = bitacoraService;
 
         }
 
@@ -45,6 +47,7 @@ namespace DevExpress.UI.Controllers
             if(!TryValidateModel(newUsuario))
                 return BadRequest();
             await _usuarioService.Create(newUsuario);
+            await _bitacoraService.Create("Crear", 2);
             await _saveService.Save();
             return Ok(new Usuario());
         }

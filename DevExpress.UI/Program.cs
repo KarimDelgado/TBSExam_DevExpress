@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using TBSExam.Data.ExamContext;
 using TBSExam.Data.Repositories.Interfaz;
 using TBSExam.Data.Repositories.Repository;
@@ -8,6 +9,8 @@ using TBSExam.Service.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services
     .AddRazorPages()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);

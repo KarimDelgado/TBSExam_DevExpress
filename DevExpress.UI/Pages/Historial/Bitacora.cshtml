@@ -1,0 +1,26 @@
+﻿@page
+@using TBSExam.Models.Models;
+@{
+    ViewData["Title"] = "Bitacora";
+}
+
+<h2>Bitacora</h2>
+
+@(Html.DevExtreme().DataGrid<Bitacora>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Bitacora")
+        .LoadAction("Get")
+        .Key("shipment_id")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+        columns.AddFor(m => m.shipment_id);
+
+        columns.AddFor(m => m.accion);
+
+        columns.AddFor(m => m.shipment_date);
+
+        columns.AddFor(m => m.usuario.nombreUsuario);
+    })
+)

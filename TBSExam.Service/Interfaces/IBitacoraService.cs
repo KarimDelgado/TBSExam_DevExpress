@@ -11,7 +11,7 @@ namespace TBSExam.Service.Interfaces
     {
         Task<IEnumerable<Bitacora>> GetAll();
         Task<Bitacora> GetById(int id);
-        Task<bool> Create(string accion, DateTime date, int usuario);
+        Task<bool> Create(string accion, int usuario);
         Task<bool> Update(Bitacora bitacora);
         Task<bool> Delete(int id);
     }
