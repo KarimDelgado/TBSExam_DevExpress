@@ -1,0 +1,36 @@
+﻿@page
+@using TBSExam.Models.Models;
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h2>Usuarios</h2>
+
+@(Html.DevExtreme().DataGrid<Usuario>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Usuarios")
+        .LoadAction("Get")
+        .InsertAction("Create")
+        .UpdateAction("Update")
+        .DeleteAction("Delete")
+        .Key("usuario_id")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+        columns.AddFor(m => m.usuario_id);
+
+        columns.AddFor(m => m.cveUsuario);
+
+        columns.AddFor(m => m.nombreUsuario);
+
+        columns.AddFor(m => m.usuPwd);
+
+        columns.AddFor(m => m.numAcceso);
+
+        columns.AddFor(m => m.ultimoAcceso);
+    })
+    .FilterRow(f => f.Visible(true))
+    .HeaderFilter(h => h.Visible(true))
+    .GroupPanel(g => g.Visible(true))
+    .Editing(e => e.AllowAdding(true).AllowDeleting(true).AllowUpdating(true))
+)

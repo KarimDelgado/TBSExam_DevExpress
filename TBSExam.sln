@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TBSExam.UI", "TBSExam.UI\TBSExam.UI.csproj", "{9E1D5E23-19BF-44E9-BD73-3AE70A16120C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TBSExam.Data", "TBSExam.Data\TBSExam.Data.csproj", "{3F380C65-CD39-4572-8AF6-877CDAB5ECC5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TBSExam.Business", "..\..\TBSExam4\TBSExam\TBSExam.Business\TBSExam.Business.csproj", "{17638B8A-F7A0-4DC3-A475-BD22D2E0CCB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TBSExam.Models", "..\..\TBSExam4\TBSExam\TBSExam.Models\TBSExam.Models.csproj", "{774E77BC-0608-40C8-8ACE-241B5C88297B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TBSExam.Service", "TBSExam.Service\TBSExam.Service.csproj", "{47242D9E-11C6-486A-B11D-DFDABFBE3F3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "DevExtreme NuGet.config", "{9E436F1A-2E96-4193-8EF8-98783C1C962A}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.UI", "DevExpress.UI\DevExpress.UI.csproj", "{4DA8FAA2-E48A-418F-B88B-8D2C5D77B870}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E1D5E23-19BF-44E9-BD73-3AE70A16120C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1D5E23-19BF-44E9-BD73-3AE70A16120C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1D5E23-19BF-44E9-BD73-3AE70A16120C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1D5E23-19BF-44E9-BD73-3AE70A16120C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F380C65-CD39-4572-8AF6-877CDAB5ECC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F380C65-CD39-4572-8AF6-877CDAB5ECC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F380C65-CD39-4572-8AF6-877CDAB5ECC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F380C65-CD39-4572-8AF6-877CDAB5ECC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17638B8A-F7A0-4DC3-A475-BD22D2E0CCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17638B8A-F7A0-4DC3-A475-BD22D2E0CCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17638B8A-F7A0-4DC3-A475-BD22D2E0CCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17638B8A-F7A0-4DC3-A475-BD22D2E0CCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774E77BC-0608-40C8-8ACE-241B5C88297B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774E77BC-0608-40C8-8ACE-241B5C88297B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774E77BC-0608-40C8-8ACE-241B5C88297B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774E77BC-0608-40C8-8ACE-241B5C88297B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47242D9E-11C6-486A-B11D-DFDABFBE3F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47242D9E-11C6-486A-B11D-DFDABFBE3F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47242D9E-11C6-486A-B11D-DFDABFBE3F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47242D9E-11C6-486A-B11D-DFDABFBE3F3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA8FAA2-E48A-418F-B88B-8D2C5D77B870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA8FAA2-E48A-418F-B88B-8D2C5D77B870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA8FAA2-E48A-418F-B88B-8D2C5D77B870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA8FAA2-E48A-418F-B88B-8D2C5D77B870}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FE261EB-94FA-432F-9DA6-E1CCF4747FB7}
+	EndGlobalSection
+EndGlobal

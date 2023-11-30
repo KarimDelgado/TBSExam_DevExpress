@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.9.2" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="23.1.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\TBSExam4\TBSExam\TBSExam.Business\TBSExam.Business.csproj" />
+      <ProjectReference Include="..\..\..\TBSExam4\TBSExam\TBSExam.Models\TBSExam.Models.csproj" />
+      <ProjectReference Include="..\TBSExam.Data\TBSExam.Data.csproj" />
+      <ProjectReference Include="..\TBSExam.Service\TBSExam.Service.csproj" />
+    </ItemGroup>
+
+    <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE" /></VisualStudio></ProjectExtensions>
+
+</Project>
