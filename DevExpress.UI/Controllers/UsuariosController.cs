@@ -29,12 +29,14 @@ namespace DevExpress.UI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(int usuario_id, string values)
+        public async Task<IActionResult> Update(int key, string values)
         {
-            var usuario = await _usuarioService.GetById(usuario_id);
+            var usuario = await _usuarioService.GetById(key);
             JsonConvert.PopulateObject(values, usuario);
             if (!TryValidateModel(usuario))
                 return BadRequest();
+            var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
+            await _bitacoraService.Create("Editar", usuarioLogin);
             await _saveService.Save();
             return Ok(usuario);
         }
@@ -46,19 +48,22 @@ namespace DevExpress.UI.Controllers
             JsonConvert.PopulateObject(values, newUsuario);
             if(!TryValidateModel(newUsuario))
                 return BadRequest();
-            await _usuarioService.Create(newUsuario);
-            await _bitacoraService.Create("Crear", 2);
+			var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
+			await _usuarioService.Create(newUsuario);
+            await _bitacoraService.Create("Crear", usuarioLogin);
             await _saveService.Save();
             return Ok(new Usuario());
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int key)
         {
-            var usuario = await _usuarioService.GetById(id);
+            var usuario = await _usuarioService.GetById(key);
             if(usuario == null)
                 return BadRequest();
-            await _usuarioService.Delete(id);
+			var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
+			await _usuarioService.Delete(key);
+            await _bitacoraService.Create("Eliminar", usuarioLogin);
             await _saveService.Save();
             return Ok();
         }

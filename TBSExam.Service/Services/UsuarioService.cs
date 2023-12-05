@@ -45,6 +45,11 @@ namespace TBSExam.Service.Services
             return _unitOfWork.UsuarioRepository.Update(usuario);
         }
 
+        public Task<Usuario> Login(string userName, string password)
+        {
+            return _unitOfWork.UsuarioRepository.Login(userName, password);
+        }
+
         public Task<bool> Update(Usuario usuario)
         {
             return _unitOfWork.UsuarioRepository.Update(usuario);

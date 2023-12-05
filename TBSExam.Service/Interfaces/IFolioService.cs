@@ -11,7 +11,7 @@ namespace TBSExam.Service.Interfaces
     {
         Task<IEnumerable<Folio>> GetAll();
         Task<Folio> GetById(int id);
-        Task<bool> Create(Folio folio);
+        Task<bool> Create(string folioInicial, string folioFinal);
         Task<bool> Update(Folio folio, bool disponible);
         Task<bool> Delete(int id);
         Task<Folio> GetbyAvaible(bool disponible);

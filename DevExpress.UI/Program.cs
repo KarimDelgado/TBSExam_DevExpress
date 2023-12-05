@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using TBSExam.Business.Scripts;
 using TBSExam.Data.ExamContext;
 using TBSExam.Data.Repositories.Interfaz;
 using TBSExam.Data.Repositories.Repository;
@@ -20,7 +21,10 @@ builder.Services.AddScoped<IFolioService, FolioService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ISaveService, SaveService>();
+builder.Services.AddScoped<GenerarFolios>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddSession();
 
 builder.Services.AddDbContext<ExamContextConnection>(options =>
 {
@@ -34,8 +38,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

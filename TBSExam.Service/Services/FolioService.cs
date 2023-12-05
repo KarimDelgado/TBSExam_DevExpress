@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TBSExam.Business.Scripts;
 using TBSExam.Data.Repositories.Interfaz;
 using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
@@ -12,13 +13,16 @@ namespace TBSExam.Service.Services
     public class FolioService : IFolioService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public FolioService(IUnitOfWork unitOfWork)
+        private readonly GenerarFolios _generarFolios;
+        public FolioService(IUnitOfWork unitOfWork, GenerarFolios generarFolios)
         {
             _unitOfWork = unitOfWork;
+            _generarFolios = generarFolios;
         }
-        public Task<bool> Create(Folio folio)
+        public Task<bool> Create(string folioInicial, string folioFinal)
         {
-            return _unitOfWork.FolioRepository.Create(folio);
+            var folios = _generarFolios.GeneradordeFolios(folioInicial, folioFinal);
+            return _unitOfWork.FolioRepository.CreateByList(folios);
         }
 
         public Task<bool> Delete(int id)

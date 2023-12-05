@@ -1,0 +1,40 @@
+﻿@page
+@using TBSExam.Models.Models;
+@model DevExpress.UI.Pages.GeneradorFolios.FoliosModel
+@{
+}
+
+<h2>Folios</h2>
+
+<form method="post">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="folioInicial" name="folioInicial" placeholder="Folio Inicial" />
+        <label for="folioInicial">Folio Inicial</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="folioFinal" name="folioFinal" placeholder="Folio Final" />
+        <label for="folioFinal">Folio Final</label>
+    </div>
+    <div class="form-floating mb-3">
+        <button class="w-100 btn btn-primary" type="submit">Generar</button>
+    </div>
+</form>
+
+@(Html.DevExtreme().DataGrid<Folio>()
+    .ID("gridContainer")
+    .ShowBorders(true)
+    .Paging(p => p.PageSize(15))
+    .Columns(columns =>
+    {
+
+        columns.AddFor(m => m.folio_id);
+
+        columns.AddFor(m => m.disponible);
+    })
+    .DataSource(d => d.Mvc()
+        .Controller("Folio")
+        .LoadAction("Get")
+        .InsertAction("Create")
+        .Key("folio_id")
+    )
+)

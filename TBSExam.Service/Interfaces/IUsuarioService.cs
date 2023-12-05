@@ -12,5 +12,6 @@ namespace TBSExam.Service.Interfaces
         Task<bool> Update(Usuario usuario);
         Task<bool> Delete(int? id);
         Task<bool> LastLogin(Usuario usuario);
+        Task<Usuario> Login(string userName, string password);
     }
 }

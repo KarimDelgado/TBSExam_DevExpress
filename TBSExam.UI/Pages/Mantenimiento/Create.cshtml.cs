@@ -40,8 +40,9 @@ namespace TBSExam.UI.Pages.Mantenimiento
             {
                 return Page();
             }
-            var create = await _usuarioService.Create(usuario);
-            var registro = await _bitacoraService.Create("Crear", DateTime.Now, 2);
+			var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
+			var create = await _usuarioService.Create(usuario);
+            var registro = await _bitacoraService.Create("Crear", usuarioLogin);
             await _saveService.Save();
             return RedirectToPage("./Index");
         }

@@ -1,30 +1,14 @@
 @page
-@using DevExpress_UI.Models
+@model IndexModel
 
-<h2>Home</h2>
-
-@(Html.DevExtreme().DataGrid<SampleOrder>()
-    .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
-    )
-)
+<form method="post"> 
+	<div class="form-floating mb-3">
+		<input type="text" class="form-control" id="usuario" name="Usuario" placeholder="Usuario"/>
+		<label for="usuario">Usuario</label>
+	</div>
+	<div class="form-floating mb-3">
+		<input type="password" class="form-control" id="password" name="Password" placeholder="Password"/>
+		<label for="password">Contraseña</label>
+	</div>
+	<button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
+</form>

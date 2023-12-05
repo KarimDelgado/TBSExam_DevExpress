@@ -16,6 +16,12 @@ namespace TBSExam.Data.Repositories.Repository
         {
         }
 
+        public async Task<bool> CreateByList(List<Folio> folios)
+        {
+            await _examContextConnection.AddRangeAsync(folios);
+            return true;
+        }
+
         public async Task<Folio> GetByAvaible(bool disponible)
         {
             return await _examContextConnection.Folios.FirstAsync(f => f.disponible == disponible);
