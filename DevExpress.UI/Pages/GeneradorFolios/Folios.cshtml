@@ -4,26 +4,49 @@
 @{
 }
 
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/own/general-style.css">
+    <link rel="stylesheet" type="text/css" href="~/css/own/folio-style.css">
+</head>
+
 <h2>Folios</h2>
 
-<form method="post">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="folioInicial" name="folioInicial" placeholder="Folio Inicial" />
-        <label for="folioInicial">Folio Inicial</label>
+<div class="centrar-folio">
+    <div class="folio-container">
+        @using (Html.BeginForm())
+        {
+            <div class="folio-textbox-container">
+                @(Html.DevExtreme().TextBoxFor(m => m.FolioInicial)
+                    .Placeholder("Folio Inicial")
+                )
+            </div>
+            <div class="folio-textbox-container">
+                @(Html.DevExtreme().TextBoxFor(m => m.FolioFinal)
+                    .Placeholder("Folio Final")
+                    )
+            </div>
+            <div class="folio-textbox-container">
+                @(Html.DevExtreme().Button()
+                    .ID("button")
+                    .Width("100%")
+                    .Text("Generar")
+                    .Type(ButtonType.Success)
+                    .UseSubmitBehavior(true)
+                )
+                @(Html.DevExtreme().ValidationSummary()
+                    .ID("summary")
+                    )
+            </div>
+        }
     </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="folioFinal" name="folioFinal" placeholder="Folio Final" />
-        <label for="folioFinal">Folio Final</label>
-    </div>
-    <div class="form-floating mb-3">
-        <button class="w-100 btn btn-primary" type="submit">Generar</button>
-    </div>
-</form>
+</div>
 
 @(Html.DevExtreme().DataGrid<Folio>()
     .ID("gridContainer")
+    .Export(e => e.Enabled(true))
     .ShowBorders(true)
-    .Paging(p => p.PageSize(15))
+    .Paging(p => p.PageSize(6))
+    .OnExporting("exporting")
     .Columns(columns =>
     {
 
@@ -38,3 +61,20 @@
         .Key("folio_id")
     )
 )
+
+<script>
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Folio');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Folios.xlsx');
+            });
+        });
+    }
+</script>

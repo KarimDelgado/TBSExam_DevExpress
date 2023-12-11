@@ -1,14 +1,62 @@
 @page
 @model IndexModel
 
-<form method="post"> 
-	<div class="form-floating mb-3">
-		<input type="text" class="form-control" id="usuario" name="Usuario" placeholder="Usuario"/>
-		<label for="usuario">Usuario</label>
+@{
+	//Layout = null;
+}
+
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" type="text/css" href="~/css/own/login-style.css">
+	<link rel="stylesheet" type="text/css" href="~/css/own/general-style.css">
+
+	<style>
+		.ocultar-navbar .navbar {
+			display: none;
+		}
+	</style>
+</head>
+
+<body class="ocultar-navbar">
+	<div class="centrar">
+		<div class="login-container">
+			<div class="login-icon centrar-icon mb-4">
+				<i class="bi bi-lock-fill"></i>
+			</div>
+			@using (Html.BeginForm())
+			{
+				<div class="login-form-control mb-2 textbox-icons">
+					<i class="bi bi-person-fill mb-3"></i>
+					@(Html.DevExtreme().TextBoxFor(m => m.User)
+						.Placeholder("Usuario")
+						)
+				</div>
+				<div class="login-form-control mb-2 textbox-icons">
+					<i class="bi bi-key-fill mb-3"></i>
+					@(Html.DevExtreme().TextBoxFor(m => m.Password)
+						.Mode(TextBoxMode.Password)
+						.Placeholder("Contraseña")
+						.ShowClearButton(true)
+						)
+				</div>
+				<div class="dx-fieldset">
+					@(Html.DevExtreme().ValidationSummary()
+						.ID("summary")
+						)
+					@(Html.DevExtreme().Button()
+						.ID("button")
+						.Width("100%")
+						.Text("Ingresar")
+						.Type(ButtonType.Success)
+						.UseSubmitBehavior(true)
+						.Icon("bi bi-unlock-fill")
+						)
+				</div>
+			}
+		</div>
 	</div>
-	<div class="form-floating mb-3">
-		<input type="password" class="form-control" id="password" name="Password" placeholder="Password"/>
-		<label for="password">Contraseña</label>
-	</div>
-	<button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-</form>
+</body>
+
+
+
+

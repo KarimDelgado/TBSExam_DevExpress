@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
@@ -17,13 +18,20 @@ namespace DevExpress_UI.Pages {
             _usuarioService = usuarioService;
             _saveService = saveService;
         }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Usuario Requerido")]
+        public string User { get; set; } = default!;
+        [BindProperty]
+        [Required(ErrorMessage = "Contraseña Requerida")]
+        public string Password { get; set; } = default!;
         public IActionResult OnGet() {
             return Page();
         }
 
-        public async Task<IActionResult> OnPost(string Usuario, string Password)
+        public async Task<IActionResult> OnPost()
         {
-            var usuario = await _usuarioService.Login(Usuario, Password);
+            var usuario = await _usuarioService.Login(User, Password);
             if (usuario == null) return Page();
             HttpContext.Session.SetString("usuarioLogin", usuario.usuario_id.ToString());
             var fecha = await _usuarioService.LastLogin(usuario);
