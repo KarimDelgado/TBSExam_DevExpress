@@ -4,6 +4,10 @@
     ViewData["Title"] = "Bitacora";
 }
 
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/own/general-style.css">
+</head>
+
 <h2>Bitacora</h2>
 
 @(Html.DevExtreme().DataGrid<Bitacora>()
@@ -12,10 +16,9 @@
         .LoadAction("Get")
         .Key("shipment_id")
     )
+    .Paging(p => p.PageSize(10))
     .RemoteOperations(true)
     .Columns(columns => {
-
-        columns.AddFor(m => m.shipment_id);
 
         columns.AddFor(m => m.accion);
 

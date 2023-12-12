@@ -1,5 +1,5 @@
 ﻿body {
-    background-color: #638ecb;
+    background-color: #AFA060;
 }
 
 .centrar{
@@ -7,4 +7,7 @@
     justify-content: center;
     align-items: center;
     height: 80vh;
+}
+
+.texto-container{
 }

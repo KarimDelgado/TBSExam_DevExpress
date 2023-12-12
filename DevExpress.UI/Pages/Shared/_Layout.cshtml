@@ -23,7 +23,7 @@
     <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
 
     @* Predefined themes: https://js.devexpress.com/DevExtreme/Guide/Themes_and_Styles/Predefined_Themes/ *@
-    <link href="~/css/devextreme/dx.material.orange.light.css" rel="stylesheet" />
+    <link href="~/css/devextreme/dx.material.orange.dark.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/css/Site.css" />
 
@@ -65,7 +65,7 @@
 
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">DevExpress_UI</a>
+            <a class="navbar-brand" href="/MainPage/PaginaPrincipal">DevExpress_UI</a>
 
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="navbar-toggler-icon"></span>
@@ -73,12 +73,14 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="/MainPage/PaginaPrincipal" class="nav-link active">Home</a></li>
                     <li class="nav-item"><a href="/Mantenimiento/Usuarios" class="nav-link">Usuarios</a></li>
                     <li class="nav-item"><a href="/Historial/Bitacora" class="nav-link">Bitacora</a></li>
                     <li class="nav-item"><a href="/GeneradorFolios/Folios" class="nav-link">Folios</a></li>
+                    <li class="nav-item"><a href="/GeneradorPedidos/Pedidos" class="nav-link">Pedidos</a></li>
                 </ul>
             </div>
+            <a type="button" class="btn btn-outline-danger" asp-page="/Index">LogOut</a>
         </div>
     </nav>
 

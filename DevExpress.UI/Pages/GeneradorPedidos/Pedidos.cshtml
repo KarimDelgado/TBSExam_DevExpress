@@ -1,0 +1,60 @@
+﻿@page
+@using TBSExam.Models.Models;
+@model DevExpress.UI.Pages.GeneradorPedidos.PedidosModel
+@{
+	ViewData["Title"] = "Pedidos";
+}
+
+<head>
+	<link rel="stylesheet" type="text/css" href="~/css/own/general-style.css">
+</head>
+
+<h2>Pedidos</h2>
+
+@(
+Html.DevExtreme().DataGrid<Pedido>()
+	.ID("gridContainer")
+	.ShowBorders(true)
+	.Paging(p => p.Enabled(false))
+	.Editing(e => e.Mode(GridEditMode.Popup)
+		.AllowAdding(true)
+		.AllowUpdating(true)
+		.AllowDeleting(true)
+		.Popup(p => p
+			.Title("New Pedido")
+			.ShowTitle(true)
+			.Width(550)
+			.Height(400)
+		)
+		.Form(f => f.Items(items =>
+		{
+			items.AddGroup()
+				.ColCount(2)
+				.ColSpan(2)
+				.Items(groupItems =>
+				{
+					groupItems.AddSimpleFor(m => m.articulo);
+					groupItems.AddSimpleFor(m => m.nombre);
+					groupItems.AddSimpleFor(m => m.telefono);
+					groupItems.AddSimpleFor(m => m.correo);
+				});
+		}))
+	)
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.articulo);
+		columns.AddFor(m => m.nombre);
+		columns.AddFor(m => m.telefono);
+		columns.AddFor(m => m.correo);
+		columns.AddFor(m => m.folio_id);
+		columns.AddFor(m => m.usuario.nombreUsuario);
+	})
+	.DataSource(d => d.Mvc()
+		.Controller("Pedidos")
+		.LoadAction("Get")
+		.InsertAction("Create")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("pedido_id")
+	)
+)

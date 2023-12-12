@@ -36,7 +36,7 @@ namespace DevExpress_UI.Pages {
             HttpContext.Session.SetString("usuarioLogin", usuario.usuario_id.ToString());
             var fecha = await _usuarioService.LastLogin(usuario);
             await _saveService.Save();
-            return RedirectToPage("/Mantenimiento/Usuarios");
+            return RedirectToPage("/MainPage/PaginaPrincipal");
         }
     }
 }

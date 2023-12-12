@@ -40,9 +40,9 @@ namespace TBSExam.Service.Services
             return _unitOfWork.FolioRepository.GetByAvaible(disponible);
         }
 
-        public Task<Folio> GetById(int id)
+        public Task<Folio> GetById(string? id)
         {
-            return _unitOfWork.FolioRepository.FindById(id);
+            return _unitOfWork.FolioRepository.GetByFolio(id);
         }
 
         public Task<bool> Update(Folio folio, bool disponible)

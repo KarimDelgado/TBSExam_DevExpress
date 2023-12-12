@@ -40,9 +40,7 @@
 						)
 				</div>
 				<div class="dx-fieldset">
-					@(Html.DevExtreme().ValidationSummary()
-						.ID("summary")
-						)
+					
 					@(Html.DevExtreme().Button()
 						.ID("button")
 						.Width("100%")
@@ -50,6 +48,10 @@
 						.Type(ButtonType.Success)
 						.UseSubmitBehavior(true)
 						.Icon("bi bi-unlock-fill")
+						.Hint("Ingresar")
+						)
+					@(Html.DevExtreme().ValidationSummary()
+						.ID("summary")
 						)
 				</div>
 			}
