@@ -15,7 +15,21 @@
 Html.DevExtreme().DataGrid<Pedido>()
 	.ID("gridContainer")
 	.ShowBorders(true)
-	.Paging(p => p.Enabled(false))
+	.FilterRow(filterRow => filterRow
+		.Visible(true)
+		.ApplyFilter(GridApplyFilterMode.Auto)
+	)
+	.HeaderFilter(headerFilter => headerFilter.Visible(true))
+	.Paging(p => p.PageSize(10))
+	.Pager(pager =>
+	{
+		pager.Visible(true);
+		pager.DisplayMode(GridPagerDisplayMode.Full);
+		pager.ShowPageSizeSelector(true);
+		pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+		pager.ShowInfo(true);
+		pager.ShowNavigationButtons(true);
+	})
 	.Editing(e => e.Mode(GridEditMode.Popup)
 		.AllowAdding(true)
 		.AllowUpdating(true)
@@ -42,12 +56,22 @@ Html.DevExtreme().DataGrid<Pedido>()
 	)
 	.Columns(columns =>
 	{
-		columns.AddFor(m => m.articulo);
-		columns.AddFor(m => m.nombre);
-		columns.AddFor(m => m.telefono);
-		columns.AddFor(m => m.correo);
-		columns.AddFor(m => m.folio_id);
-		columns.AddFor(m => m.usuario.nombreUsuario);
+		columns.AddFor(m => m.articulo)
+			.Alignment(HorizontalAlignment.Center)
+			.AllowHeaderFiltering(false);
+		columns.AddFor(m => m.nombre)
+			.Alignment(HorizontalAlignment.Center);
+		columns.AddFor(m => m.telefono)
+			.Alignment(HorizontalAlignment.Center)
+			.AllowHeaderFiltering(false);
+		columns.AddFor(m => m.correo)
+			.Alignment(HorizontalAlignment.Center)
+			.AllowHeaderFiltering(false);
+		columns.AddFor(m => m.folio_id)
+			.Alignment(HorizontalAlignment.Center)
+			.AllowHeaderFiltering(false);
+		columns.AddFor(m => m.usuario.nombreUsuario)
+			.Alignment(HorizontalAlignment.Center);
 	})
 	.DataSource(d => d.Mvc()
 		.Controller("Pedidos")

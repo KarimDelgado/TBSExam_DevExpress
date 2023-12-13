@@ -7,6 +7,11 @@
 <head>
     <link rel="stylesheet" type="text/css" href="~/css/own/general-style.css">
     <link rel="stylesheet" type="text/css" href="~/css/own/folio-style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.10.1/polyfill.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="~/js/devextreme/jszip.js"></script>
 </head>
 
 <h2>Folios</h2>
@@ -45,14 +50,31 @@
     .ID("gridContainer")
     .Export(e => e.Enabled(true))
     .ShowBorders(true)
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .Paging(p => p.PageSize(6))
+    .Pager(pager =>
+    {
+        pager.Visible(true);
+        pager.DisplayMode(GridPagerDisplayMode.Full);
+        pager.ShowPageSizeSelector(true);
+        pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+        pager.ShowInfo(true);
+        pager.ShowNavigationButtons(true);
+    })
     .OnExporting("exporting")
     .Columns(columns =>
     {
 
-        columns.AddFor(m => m.folio_id);
+        columns.AddFor(m => m.folio_id)
+            .Alignment(HorizontalAlignment.Center)
+            .AllowHeaderFiltering(false);
 
-        columns.AddFor(m => m.disponible);
+        columns.AddFor(m => m.disponible)
+            .Alignment(HorizontalAlignment.Center);
     })
     .DataSource(d => d.Mvc()
         .Controller("Folio")
@@ -66,6 +88,12 @@
     function exporting(e) {
         var workbook = new ExcelJS.Workbook();
         var worksheet = workbook.addWorksheet('Folios');
+        let nombre = 'Karim';
+        const date = new Date;
+        const dia = date.getDate();
+        const mes = date.getMonth() + 1;
+        const anio = date.getFullYear();
+        let docName = nombre + '_' + dia + '/' + mes + '/' + anio + '.xlsx';
 
         DevExpress.excelExporter.exportDataGrid({
             component: e.component,
@@ -73,7 +101,7 @@
             autoFilterEnabled: true
         }).then(function () {
             workbook.xlsx.writeBuffer().then(function (buffer) {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Folios.xlsx');
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), docName);
             });
         });
     }

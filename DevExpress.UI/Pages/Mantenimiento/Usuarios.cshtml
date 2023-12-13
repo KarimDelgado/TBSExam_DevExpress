@@ -14,7 +14,21 @@
 Html.DevExtreme().DataGrid<Usuario>()
     .ID("gridContainer")
     .ShowBorders(true)
-    .Paging(p => p.Enabled(false))
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .Paging(p => p.PageSize(10))
+    .Pager(pager =>
+    {
+        pager.Visible(true);
+        pager.DisplayMode(GridPagerDisplayMode.Full);
+        pager.ShowPageSizeSelector(true);
+        pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+        pager.ShowInfo(true);
+        pager.ShowNavigationButtons(true);
+    })
     .Editing(e => e.Mode(GridEditMode.Popup)
         .AllowUpdating(true)
         .AllowAdding(true)
@@ -23,7 +37,7 @@ Html.DevExtreme().DataGrid<Usuario>()
             .Title("New Usuario")
             .ShowTitle(true)
             .Width(500)
-            .Height(350)
+            .Height(500)
         )
         .Form(f => f.Items(items => {
             items.AddGroup()
@@ -39,11 +53,21 @@ Html.DevExtreme().DataGrid<Usuario>()
         }))
     )
     .Columns(columns => {
-        columns.AddFor(m => m.cveUsuario);
-        columns.AddFor(m => m.nombreUsuario);
-        columns.AddFor(m => m.usuPwd);
-        columns.AddFor(m => m.numAcceso);
-        columns.AddFor(m => m.ultimoAcceso);
+        columns.AddFor(m => m.cveUsuario)
+            .Alignment(HorizontalAlignment.Center)
+            .AllowHeaderFiltering(false);
+        columns.AddFor(m => m.nombreUsuario)
+            .Alignment(HorizontalAlignment.Center)
+            .AllowHeaderFiltering(false);
+        columns.AddFor(m => m.usuPwd)
+            .Alignment(HorizontalAlignment.Center)
+            .AllowHeaderFiltering(false);
+        columns.AddFor(m => m.numAcceso)
+            .Alignment(HorizontalAlignment.Center)
+            .AllowHeaderFiltering(false);
+        columns.AddFor(m => m.ultimoAcceso)
+            .Alignment(HorizontalAlignment.Center)
+            .Format("d/M/yyyy");
     })
     .DataSource(d => d.Mvc()
         .Controller("Usuarios")
