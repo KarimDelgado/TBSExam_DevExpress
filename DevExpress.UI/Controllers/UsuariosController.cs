@@ -2,7 +2,6 @@
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Collections;
 using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
 
@@ -46,10 +45,10 @@ namespace DevExpress.UI.Controllers
         {
             var newUsuario = new Usuario();
             JsonConvert.PopulateObject(values, newUsuario);
-            if(!TryValidateModel(newUsuario))
+            if (!TryValidateModel(newUsuario))
                 return BadRequest();
-			var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
-			await _usuarioService.Create(newUsuario);
+            var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
+            await _usuarioService.Create(newUsuario);
             await _bitacoraService.Create("Crear", usuarioLogin);
             await _saveService.Save();
             return Ok(new Usuario());
@@ -59,10 +58,10 @@ namespace DevExpress.UI.Controllers
         public async Task<IActionResult> Delete(int key)
         {
             var usuario = await _usuarioService.GetById(key);
-            if(usuario == null)
+            if (usuario == null)
                 return BadRequest();
-			var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
-			await _usuarioService.Delete(key);
+            var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
+            await _usuarioService.Delete(key);
             await _bitacoraService.Create("Eliminar", usuarioLogin);
             await _saveService.Save();
             return Ok();

@@ -1,14 +1,13 @@
-﻿using DevExtreme.AspNet.Mvc;
-using DevExtreme.AspNet.Data;
-using Microsoft.AspNetCore.Http;
+﻿using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using TBSExam.Service.Interfaces;
 
 namespace DevExpress.UI.Controllers
 {
-	public class BitacoraController : Controller
-	{
-		private readonly IBitacoraService _bitacoraService;
+    public class BitacoraController : Controller
+    {
+        private readonly IBitacoraService _bitacoraService;
         public BitacoraController(IBitacoraService bitacoraService)
         {
             _bitacoraService = bitacoraService;

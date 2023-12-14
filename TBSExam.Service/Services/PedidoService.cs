@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+using Newtonsoft.Json;
 using TBSExam.Data.Repositories.Interfaz;
 using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
@@ -16,14 +15,33 @@ namespace TBSExam.Service.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<bool> Create(Pedido pedido)
+        public async Task<bool> Create(string values, string usuarioLogin)
         {
-            return _unitOfWork.PedidoRepository.Create(pedido);
+            var folioDisponible = await _unitOfWork.FolioRepository.GetByAvaible(true);
+			folioDisponible.disponible = false;
+			await _unitOfWork.FolioRepository.Update(folioDisponible);
+			var newPedido = new Pedido
+            {
+                folio_id = folioDisponible.folio_id,
+                usuario_id = int.Parse(usuarioLogin)
+            };
+			JsonConvert.PopulateObject(values, newPedido);
+			var create = await _unitOfWork.PedidoRepository.Create(newPedido);
+            await _unitOfWork.Save();
+            return create;
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            return _unitOfWork.PedidoRepository.Delete(id);
+            var pedido = await _unitOfWork.PedidoRepository.FindById(id);
+            if (pedido == null)
+                return false;
+            var folio = await _unitOfWork.FolioRepository.GetByFolio(pedido.folio_id);
+            folio.disponible = true;
+            await _unitOfWork.FolioRepository.Update(folio);
+            var eliminar = await _unitOfWork.PedidoRepository.Delete(id);
+            await _unitOfWork.Save();
+            return eliminar;
         }
 
         public Task<IEnumerable<Pedido>> GetAll()
@@ -36,9 +54,14 @@ namespace TBSExam.Service.Services
             return _unitOfWork.PedidoRepository.GetSpecificPedido(id);
         }
 
-        public Task<bool> Update(Pedido pedido)
+        public async Task<bool> Update(int id, string values)
         {
-            return _unitOfWork.PedidoRepository.Update(pedido);
+            var pedido = await _unitOfWork.PedidoRepository.FindById(id);
+            if (pedido == null)
+                return false;
+            JsonConvert.PopulateObject(values, pedido);
+            await _unitOfWork.Save();
+            return true;
         }
     }
 }

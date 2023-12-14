@@ -1,9 +1,8 @@
-﻿using DevExtreme.AspNet.Mvc;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using TBSExam.Service.Interfaces;
-using Newtonsoft.Json;
 using TBSExam.Models.Models;
+using TBSExam.Service.Interfaces;
 
 namespace DevExpress.UI.Controllers
 {
@@ -20,13 +19,6 @@ namespace DevExpress.UI.Controllers
         {
             var folios = await _folioService.GetAll();
             return Json(DataSourceLoader.Load(folios, loadOptions));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(string values)
-        {
-            var newFolio = new Folio();
-            return Ok(new Folio());
         }
     }
 }

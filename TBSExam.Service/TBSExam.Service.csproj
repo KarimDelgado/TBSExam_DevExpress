@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\TBSExam4\TBSExam\TBSExam.Business\TBSExam.Business.csproj" />
     <ProjectReference Include="..\..\..\TBSExam4\TBSExam\TBSExam.Models\TBSExam.Models.csproj" />
     <ProjectReference Include="..\TBSExam.Data\TBSExam.Data.csproj" />
