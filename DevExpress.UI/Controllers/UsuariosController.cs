@@ -30,41 +30,28 @@ namespace DevExpress.UI.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(int key, string values)
         {
-            var usuario = await _usuarioService.GetById(key);
-            JsonConvert.PopulateObject(values, usuario);
-            if (!TryValidateModel(usuario))
-                return BadRequest();
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
-            await _bitacoraService.Create("Editar", usuarioLogin);
-            await _saveService.Save();
-            return Ok(usuario);
+            var update = await _usuarioService.Update(key, values, usuarioLogin);
+            if (!update) return BadRequest();
+            else return Ok();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(string values)
         {
-            var newUsuario = new Usuario();
-            JsonConvert.PopulateObject(values, newUsuario);
-            if (!TryValidateModel(newUsuario))
-                return BadRequest();
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
-            await _usuarioService.Create(newUsuario);
-            await _bitacoraService.Create("Crear", usuarioLogin);
-            await _saveService.Save();
-            return Ok(new Usuario());
+            var create = await _usuarioService.Create(values, usuarioLogin);
+            if (!create) return BadRequest();
+            else return Ok();
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int key)
         {
-            var usuario = await _usuarioService.GetById(key);
-            if (usuario == null)
-                return BadRequest();
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
-            await _usuarioService.Delete(key);
-            await _bitacoraService.Create("Eliminar", usuarioLogin);
-            await _saveService.Save();
-            return Ok();
+            var delete = await _usuarioService.Delete(key, usuarioLogin);
+            if(!delete) return BadRequest();
+            else return Ok();
         }
     }
 }

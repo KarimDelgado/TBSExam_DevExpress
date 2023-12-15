@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +17,58 @@ namespace TBSExam.Service.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<bool> Create(Usuario usuario)
+        public async Task<bool> Create(string values, string usuarioLogin)
         {
-            usuario.ultimoAcceso = DateTime.Now;
-            usuario.numAcceso = 0;
-            return _unitOfWork.UsuarioRepository.Create(usuario);
+            var newUsuario = new Usuario
+            {
+                ultimoAcceso = DateTime.Now,
+                numAcceso = 0
+            };
+            JsonConvert.PopulateObject(values, newUsuario);
+            var create = await _unitOfWork.UsuarioRepository.Create(newUsuario);
+            var newBitacora = new Bitacora
+            {
+                accion = "Crear",
+                usuario_id = int.Parse(usuarioLogin),
+                shipment_date = DateTime.Now
+            };
+            await _unitOfWork.BitacoraRepository.Create(newBitacora);
+            await _unitOfWork.Save();
+            return create;
         }
 
-        public Task<bool> Delete(int? id)
+        public async Task<bool> Delete(int? id, string usuarioLogin)
         {
-            return _unitOfWork.UsuarioRepository.Delete(id);
+            var usuario = await _unitOfWork.UsuarioRepository.FindById(id);
+            if (usuario == null)
+                return false;
+            var delete = await _unitOfWork.UsuarioRepository.Delete(id);
+            var newBitacora = new Bitacora
+            {
+                accion = "Eliminar",
+                usuario_id = int.Parse(usuarioLogin),
+                shipment_date= DateTime.Now
+            };
+            await _unitOfWork.BitacoraRepository.Create(newBitacora);
+            await _unitOfWork.Save();
+            return delete;
+        }
+
+        public async Task<bool> Update(int? id, string values, string usuarioLogin)
+        {
+            var usuario = await _unitOfWork.UsuarioRepository.FindById(id);
+            if (usuario == null)
+                return false;
+            JsonConvert.PopulateObject(values, usuario);
+            var newBitacora = new Bitacora
+            {
+                accion = "Editar",
+                usuario_id = int.Parse(usuarioLogin),
+                shipment_date= DateTime.Now
+            };
+            await _unitOfWork.BitacoraRepository.Create(newBitacora);
+            await _unitOfWork.Save();
+            return true;
         }
 
         public Task<IEnumerable<Usuario>> GetAll()
@@ -50,9 +93,6 @@ namespace TBSExam.Service.Services
             return _unitOfWork.UsuarioRepository.Login(userName, password);
         }
 
-        public Task<bool> Update(Usuario usuario)
-        {
-            return _unitOfWork.UsuarioRepository.Update(usuario);
-        }
+        
     }
 }
