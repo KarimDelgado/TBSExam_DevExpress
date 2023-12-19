@@ -1,8 +1,6 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
 
 namespace DevExpress.UI.Controllers
@@ -10,13 +8,9 @@ namespace DevExpress.UI.Controllers
     public class UsuariosController : Controller
     {
         private readonly IUsuarioService _usuarioService;
-        private readonly ISaveService _saveService;
-        private readonly IBitacoraService _bitacoraService;
-        public UsuariosController(IUsuarioService usuarioService, ISaveService saveService, IBitacoraService bitacoraService)
+        public UsuariosController(IUsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
-            _saveService = saveService;
-            _bitacoraService = bitacoraService;
 
         }
 
@@ -50,7 +44,7 @@ namespace DevExpress.UI.Controllers
         {
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
             var delete = await _usuarioService.Delete(key, usuarioLogin);
-            if(!delete) return BadRequest();
+            if (!delete) return BadRequest();
             else return Ok();
         }
     }

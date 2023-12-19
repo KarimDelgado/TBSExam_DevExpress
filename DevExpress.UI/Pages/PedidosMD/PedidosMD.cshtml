@@ -1,0 +1,46 @@
+﻿@page
+@using TBSExam.Models.Models;
+@model DevExpress.UI.Pages.PedidosMD.PedidosMDModel
+@{
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/own/general-style.css">
+</head>
+
+<h2>Pedidos Master-Detail</h2>
+
+@(
+Html.DevExtreme().DataGrid<Usuario>()
+    .ID("gridContainer")
+    .ShowBorders(true)
+    .DataSource(d => d.Mvc()
+        .Controller("PedidosMD")
+        .LoadAction("GetUsuario")
+        .Key("usuario_id")
+    )
+    .Columns(column => {
+        column.AddFor(m => m.cveUsuario);
+        column.AddFor(m => m.nombreUsuario);
+    })
+    .MasterDetail(md => {
+        md.Enabled(true);
+        md.Template(@<text>
+            @(
+            Html.DevExtreme().DataGrid<Pedido>()
+                .ColumnAutoWidth(true)
+                .ShowBorders(true)
+                .Columns(column => {
+                    column.AddFor(m => m.articulo);
+                    column.AddFor(m => m.nombre);
+                    column.AddFor(m => m.telefono);
+                })
+                .DataSource(d => d.Mvc()
+                    .Controller("PedidosMD")
+                    .LoadAction("GetPedido")
+                    .LoadParams(new {id = new JS("data.usuario_id")})
+                )
+            )
+        </text>);
+    })
+)

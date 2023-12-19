@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TBSExam.Data.ExamContext;
 using TBSExam.Data.Repositories.Interfaz;
 
@@ -21,9 +18,9 @@ namespace TBSExam.Data.Repositories.Repository
         }
 
         public IBitacoraRepository BitacoraRepository { get; private set; }
-        public IFolioRepository FolioRepository { get; private set;}
-        public IPedidoRepository PedidoRepository { get; private set;}
-        public IUsuarioRepository UsuarioRepository { get; private set;}
+        public IFolioRepository FolioRepository { get; private set; }
+        public IPedidoRepository PedidoRepository { get; private set; }
+        public IUsuarioRepository UsuarioRepository { get; private set; }
 
         public async Task Save()
         {
@@ -35,6 +32,6 @@ namespace TBSExam.Data.Repositories.Repository
             _examContextConnection.Dispose();
         }
 
-        
+
     }
 }

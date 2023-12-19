@@ -1,8 +1,6 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
 
 namespace DevExpress.UI.Controllers
@@ -16,7 +14,7 @@ namespace DevExpress.UI.Controllers
             _pedidoService = pedidoService;
         }
 
-		[HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Get(DataSourceLoadOptions loadOptions)
         {
             var pedidos = await _pedidoService.GetAll();
@@ -28,7 +26,7 @@ namespace DevExpress.UI.Controllers
         {
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
             var create = await _pedidoService.Create(values, usuarioLogin);
-            if(create == true) 
+            if (create == true)
                 return Ok();
             else
                 return BadRequest();
@@ -38,9 +36,9 @@ namespace DevExpress.UI.Controllers
         public async Task<IActionResult> Update(int key, string values)
         {
             var update = await _pedidoService.Update(key, values);
-            if(update == true)
+            if (update == true)
                 return Ok();
-            else 
+            else
                 return BadRequest();
         }
 
