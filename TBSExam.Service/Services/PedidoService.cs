@@ -16,23 +16,24 @@ namespace TBSExam.Service.Services
 		{
 			_unitOfWork = unitOfWork;
 		}
-		public Task<bool> Create(string values, string usuarioLogin)
+		public async Task<bool> Create(string values, string usuarioLogin)
 		{
+			Folio folioDisponible;
 			lock (_locker)
 			{
-                var folioDisponible =  _unitOfWork.FolioRepository.GetByAvaible(true);
+                folioDisponible =  _unitOfWork.FolioRepository.GetByAvaible(true);
                 folioDisponible.disponible = false;
-                var folioUpdate = _unitOfWork.FolioRepository.Update(folioDisponible);
-                var newPedido = new Pedido
-                {
-                    folio_id = folioDisponible.folio_id,
-                    usuario_id = int.Parse(usuarioLogin)
-                };
-                JsonConvert.PopulateObject(values, newPedido);
-                var create = _unitOfWork.PedidoRepository.Create(newPedido);
-                _unitOfWork.Save();
-				return create;
+				_unitOfWork.SaveFolio();
             }
+            var newPedido = new Pedido
+            {
+                folio_id = folioDisponible.folio_id,
+                usuario_id = int.Parse(usuarioLogin)
+            };
+            JsonConvert.PopulateObject(values, newPedido);
+            var create = await _unitOfWork.PedidoRepository.Create(newPedido);
+            await _unitOfWork.Save();
+            return create;
         }
 
 		public async Task<bool> Delete(int id)

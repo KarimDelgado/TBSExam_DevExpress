@@ -27,10 +27,16 @@ namespace TBSExam.Data.Repositories.Repository
             await _examContextConnection.SaveChangesAsync();
         }
 
+        public void SaveFolio()
+        {
+            _examContextConnection.SaveChanges();
+        }
+
         public void Dispose()
         {
             _examContextConnection.Dispose();
         }
+
 
 
     }

@@ -13,14 +13,20 @@ namespace TBSExam.Data.Repositories.Repository
         {
         }
 
-        public async Task<IEnumerable<Usuario>> ListMD(int id)
+        public async Task<IEnumerable<Usuario>> ListUsuarioMD()
         {
-            return (IEnumerable<Usuario>)await _examContextConnection.Usuarios.Where(e => e.usuario_id == id).Select(e => e.pedido).FirstOrDefaultAsync();
+            return await _examContextConnection.Usuarios.Where(e => e.pedido.Count != 0).ToListAsync();
         }
 
         public async Task<Usuario> Login(string username, string password)
         {
             return await _examContextConnection.Usuarios.SingleOrDefaultAsync(c => c.nombreUsuario == username && c.usuPwd == password);
+        }
+
+        public async Task<List<ICollection<Pedido>>> ListMDAsync(int id)
+        {
+            var pedidos = await _examContextConnection.Usuarios.Where(e => e.usuario_id == id).Select(e => e.pedido).ToListAsync();
+            return pedidos;
         }
     }
 }

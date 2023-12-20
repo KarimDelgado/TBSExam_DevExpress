@@ -91,9 +91,23 @@ namespace TBSExam.Service.Services
 			return _unitOfWork.UsuarioRepository.Login(userName, password);
 		}
 
-        public Task<IEnumerable<Usuario>> ListMD(int id)
+        public async Task<List<Pedido>> ListMDAsync(int id)
         {
-			return _unitOfWork.UsuarioRepository.ListMD(id);
+			var pedidosUsuario = await _unitOfWork.UsuarioRepository.ListMDAsync(id);
+			List<Pedido> listaPedidos = new List<Pedido>();
+			foreach(ICollection<Pedido> collection in pedidosUsuario)
+			{
+				foreach(Pedido pedido in collection)
+				{
+					listaPedidos.Add(pedido);
+				}
+			}
+			return listaPedidos;
+        }
+
+        public Task<IEnumerable<Usuario>> ListUsuarioMD()
+        {
+            return _unitOfWork.UsuarioRepository.ListUsuarioMD();
         }
     }
 }

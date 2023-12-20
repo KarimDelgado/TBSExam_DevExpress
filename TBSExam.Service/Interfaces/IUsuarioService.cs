@@ -13,6 +13,7 @@ namespace TBSExam.Service.Interfaces
         Task<bool> Delete(int? id, string usuarioLogin);
         Task<bool> LastLogin(Usuario usuario);
         Task<Usuario> Login(string userName, string password);
-        Task<IEnumerable<Usuario>> ListMD(int id);
+        Task<List<Pedido>> ListMDAsync(int id);
+        Task<IEnumerable<Usuario>> ListUsuarioMD();
     }
 }

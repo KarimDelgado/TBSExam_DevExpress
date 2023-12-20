@@ -14,6 +14,7 @@
 Html.DevExtreme().DataGrid<Usuario>()
     .ID("gridContainer")
     .ShowBorders(true)
+    .Scrolling(s => s.Mode(GridScrollingMode.Virtual))
     .DataSource(d => d.Mvc()
         .Controller("PedidosMD")
         .LoadAction("GetUsuario")
@@ -27,19 +28,30 @@ Html.DevExtreme().DataGrid<Usuario>()
         md.Enabled(true);
         md.Template(@<text>
             @(
-            Html.DevExtreme().DataGrid<Pedido>()
-                .ColumnAutoWidth(true)
-                .ShowBorders(true)
-                .Columns(column => {
-                    column.AddFor(m => m.articulo);
-                    column.AddFor(m => m.nombre);
-                    column.AddFor(m => m.telefono);
-                })
-                .DataSource(d => d.Mvc()
-                    .Controller("PedidosMD")
-                    .LoadAction("GetPedido")
-                    .LoadParams(new {id = new JS("data.usuario_id")})
-                )
+    Html.DevExtreme().DataGrid<Pedido>()
+            .ColumnAutoWidth(true)
+            .ShowBorders(true)
+            .Scrolling(s => s.Mode(GridScrollingMode.Virtual))
+            .Paging(p => p.PageSize(5))
+            .Pager(pager =>
+            {
+                pager.Visible(true);
+                pager.DisplayMode(GridPagerDisplayMode.Full);
+                pager.ShowPageSizeSelector(true);
+                pager.AllowedPageSizes(new JS("[5, 10, 'all']"));
+                pager.ShowInfo(true);
+                pager.ShowNavigationButtons(true);
+            })
+            .Columns(column => {
+                column.AddFor(m => m.articulo);
+                column.AddFor(m => m.nombre);
+                column.AddFor(m => m.telefono);
+            })
+            .DataSource(d => d.Mvc()
+                .Controller("PedidosMD")
+                .LoadAction("GetPedido")
+                .LoadParams(new {id = new JS("data.usuario_id")})
+            )
             )
         </text>);
     })

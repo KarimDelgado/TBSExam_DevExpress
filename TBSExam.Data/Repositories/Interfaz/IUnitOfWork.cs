@@ -10,5 +10,6 @@ namespace TBSExam.Data.Repositories.Interfaz
         IPedidoRepository PedidoRepository { get; }
         IUsuarioRepository UsuarioRepository { get; }
         Task Save();
+        void SaveFolio();
     }
 }

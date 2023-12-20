@@ -19,14 +19,14 @@ namespace DevExpress.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsuario(DataSourceLoadOptions loadOptions)
         {
-            var usuarios = await _usuarioService.GetAll();
+            var usuarios = await _usuarioService.ListUsuarioMD();
             return Json(DataSourceLoader.Load(usuarios, loadOptions));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPedido(int id, DataSourceLoadOptions loadOptions)
         {
-            var pedidos = await _usuarioService.ListMD(id);
+            var pedidos =  await _usuarioService.ListMDAsync(id);
             return Json(DataSourceLoader.Load(pedidos, loadOptions));
         }
     }
