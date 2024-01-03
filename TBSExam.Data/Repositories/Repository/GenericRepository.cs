@@ -15,18 +15,18 @@ namespace TBSExam.Data.Repositories.Repository
         }
         public async Task<bool> Create(T entity)
         {
-            _examContextConnection.Set<T>().Add(entity);
+            await _examContextConnection.Set<T>().AddAsync(entity);
             return true;
         }
 
         public async Task<bool> Delete(int? id)
         {
-            var entity = _examContextConnection.Set<T>().Find(id);
+            var entity = await _examContextConnection.Set<T>().FindAsync(id);
             _examContextConnection.Set<T>().Remove(entity);
             return true;
         }
 
-        public async Task<T> FindById(int? id)
+        public async Task<T?> FindById(int? id)
         {
             return await _examContextConnection.Set<T>().FindAsync(id);
         }
@@ -36,10 +36,10 @@ namespace TBSExam.Data.Repositories.Repository
             return await _examContextConnection.Set<T>().ToListAsync();
         }
 
-        public async Task<bool> Update(T entity)
+        public Task<bool> Update(T entity)
         {
             _examContextConnection.Set<T>().Update(entity);
-            return true;
+            return Task.FromResult(true);
         }
     }
 }

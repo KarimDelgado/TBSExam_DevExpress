@@ -10,6 +10,6 @@ namespace TBSExam.Data.Repositories.Interfaz
     public interface IPedidoRepository : IGenericRepository<Pedido>
     {
         Task<IEnumerable<Pedido>> GetAllPedidos();
-        Task<Pedido> GetSpecificPedido(int? id);
+        Task<Pedido?> GetSpecificPedido(int? id);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
 
 namespace DevExpress.UI.Controllers

@@ -70,44 +70,42 @@ namespace TBSExam.Service.Services
 
 		public async Task<IEnumerable<Usuario>> GetAll()
 		{
-			var usuarios = await _unitOfWork.UsuarioRepository.GetAll(); // <-----
+			var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
 			return usuarios;
 		}
 
-		public Task<Usuario> GetById(int? id)
+		public Task<Usuario?> GetById(int? id)
 		{
 			return _unitOfWork.UsuarioRepository.FindById(id);
 		}
 
-		public Task<bool> LastLogin(Usuario usuario)
+		public async Task<bool> LastLogin(Usuario usuario)
 		{
 			usuario.numAcceso += 1;
 			usuario.ultimoAcceso = DateTime.Now;
-			return _unitOfWork.UsuarioRepository.Update(usuario);
+			var update = _unitOfWork.UsuarioRepository.Update(usuario);
+			await _unitOfWork.Save();
+			return true;
 		}
 
-		public Task<Usuario> Login(string userName, string password)
+		public async Task<Usuario?> Login(string userName, string password)
 		{
-			return _unitOfWork.UsuarioRepository.Login(userName, password);
+			var usuario = _unitOfWork.UsuarioRepository.Login(userName, password);
+			usuario.numAcceso += 1;
+			usuario.ultimoAcceso = DateTime.Now;
+			await _unitOfWork.Save();
+			return usuario;
 		}
 
         public async Task<List<Pedido>> ListMDAsync(int id)
         {
 			var pedidosUsuario = await _unitOfWork.UsuarioRepository.ListMDAsync(id);
-			List<Pedido> listaPedidos = new List<Pedido>();
-			foreach(ICollection<Pedido> collection in pedidosUsuario)
-			{
-				foreach(Pedido pedido in collection)
-				{
-					listaPedidos.Add(pedido);
-				}
-			}
-			return listaPedidos;
+			return pedidosUsuario;
         }
 
-        public Task<IEnumerable<Usuario>> ListUsuarioMD()
+        public async Task<IEnumerable<Usuario>> ListUsuarioMD()
         {
-            return _unitOfWork.UsuarioRepository.ListUsuarioMD();
+            return await _unitOfWork.UsuarioRepository.ListUsuarioMD();
         }
     }
 }

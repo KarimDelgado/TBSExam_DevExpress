@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TBSExam.Data.Repositories.Interfaz;
 using TBSExam.Models.Models;
 using TBSExam.Service.Interfaces;
@@ -16,6 +13,7 @@ namespace TBSExam.Service.Services
         {
             _unitOfWork = unitOfWork;
         }
+
         public Task<bool> Create(string accion, string usuario)
         {
             var registro = new Bitacora
@@ -24,7 +22,8 @@ namespace TBSExam.Service.Services
                 shipment_date = DateTime.Now,
                 usuario_id = int.Parse(usuario)
             };
-            return _unitOfWork.BitacoraRepository.Create(registro);
+            var answer = _unitOfWork.BitacoraRepository.Create(registro);
+            return answer;
         }
 
         public Task<bool> Delete(int id)
@@ -37,7 +36,7 @@ namespace TBSExam.Service.Services
             return _unitOfWork.BitacoraRepository.GetAllBitacoras();
         }
 
-        public Task<Bitacora> GetById(int id)
+        public Task<Bitacora?> GetById(int id)
         {
             return _unitOfWork.BitacoraRepository.GetSpecificBitacora(id);
         }

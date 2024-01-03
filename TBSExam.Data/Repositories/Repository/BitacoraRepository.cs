@@ -18,7 +18,7 @@ namespace TBSExam.Data.Repositories.Repository
             return await _examContextConnection.Bitacoras.Include(p => p.usuario).ToListAsync();
         }
 
-        public Task<Bitacora> GetSpecificBitacora(int? id)
+        public Task<Bitacora?> GetSpecificBitacora(int? id)
         {
             return _examContextConnection.Bitacoras.Include(p => p.usuario).FirstOrDefaultAsync(p => p.shipment_id == id);
         }

@@ -19,7 +19,9 @@ namespace TBSExam.Service.Services
 		public Task<bool> Create(string folioInicial, string folioFinal)
 		{
 			var folios = _generarFolios.GeneradordeFolios(folioInicial, folioFinal);
-			return _unitOfWork.FolioRepository.CreateByList(folios);
+			var createFolios = _unitOfWork.FolioRepository.CreateByList(folios);
+			_unitOfWork.Save();
+			return createFolios;
 		}
 
 		public Task<bool> Delete(int id)
@@ -37,7 +39,7 @@ namespace TBSExam.Service.Services
 			return _unitOfWork.FolioRepository.GetByAvaible(disponible);
 		}
 
-		public Task<Folio> GetById(string? id)
+		public Task<Folio?> GetById(string? id)
 		{
 			return _unitOfWork.FolioRepository.GetByFolio(id);
 		}

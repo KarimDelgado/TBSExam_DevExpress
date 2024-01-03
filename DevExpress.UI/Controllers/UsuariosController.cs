@@ -1,6 +1,7 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TBSExam.Service.Interfaces;
 
 namespace DevExpress.UI.Controllers
@@ -26,7 +27,11 @@ namespace DevExpress.UI.Controllers
         {
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
             var update = await _usuarioService.Update(key, values, usuarioLogin);
-            if (!update) return BadRequest();
+            if (!update) 
+            {
+                ModelState.AddModelError(string.Empty, "Error al editar usuario");
+                return View();
+            } 
             else return Ok();
         }
 
@@ -35,7 +40,11 @@ namespace DevExpress.UI.Controllers
         {
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
             var create = await _usuarioService.Create(values, usuarioLogin);
-            if (!create) return BadRequest();
+            if (!create) 
+            {
+                ModelState.AddModelError(string.Empty, "Error al registrar usuario");
+                return View();
+            } 
             else return Ok();
         }
 
@@ -44,7 +53,11 @@ namespace DevExpress.UI.Controllers
         {
             var usuarioLogin = HttpContext.Session.GetString("usuarioLogin");
             var delete = await _usuarioService.Delete(key, usuarioLogin);
-            if (!delete) return BadRequest();
+            if (!delete) 
+            {
+                ModelState.AddModelError(string.Empty, "Error al eliminar usuario");
+                return View(); 
+            } 
             else return Ok();
         }
     }

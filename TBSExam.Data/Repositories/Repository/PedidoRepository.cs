@@ -18,7 +18,7 @@ namespace TBSExam.Data.Repositories.Repository
             return await _examContextConnection.Pedidos.Include(p => p.usuario).Include(p => p.folio).ToListAsync();
         }
 
-        public async Task<Pedido> GetSpecificPedido(int? id)
+        public async Task<Pedido?> GetSpecificPedido(int? id)
         {
             return await _examContextConnection.Pedidos.Include(p => p.usuario).Include(p => p.folio).FirstOrDefaultAsync(p => p.pedido_id == id);
         }

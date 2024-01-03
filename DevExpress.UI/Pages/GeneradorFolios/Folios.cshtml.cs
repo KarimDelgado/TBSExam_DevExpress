@@ -8,11 +8,9 @@ namespace DevExpress.UI.Pages.GeneradorFolios
     public class FoliosModel : PageModel
     {
         private readonly IFolioService _folioService;
-        private readonly ISaveService _saveService;
-        public FoliosModel(IFolioService folioService, ISaveService saveService)
+        public FoliosModel(IFolioService folioService)
         {
             _folioService = folioService;
-            _saveService = saveService;
         }
 
         [BindProperty]
@@ -29,8 +27,7 @@ namespace DevExpress.UI.Pages.GeneradorFolios
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var folios = _folioService.Create(FolioInicial, FolioFinal);
-            await _saveService.Save();
+            var folios = await _folioService.Create(FolioInicial, FolioFinal);
             return Page();
         }
     }

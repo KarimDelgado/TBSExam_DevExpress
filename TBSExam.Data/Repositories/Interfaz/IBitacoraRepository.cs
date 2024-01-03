@@ -10,6 +10,6 @@ namespace TBSExam.Data.Repositories.Interfaz
     public interface IBitacoraRepository : IGenericRepository<Bitacora>
     {
         Task<IEnumerable<Bitacora>> GetAllBitacoras();
-        Task<Bitacora> GetSpecificBitacora(int? id);
+        Task<Bitacora?> GetSpecificBitacora(int? id);
     }
 }

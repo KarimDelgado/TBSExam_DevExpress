@@ -23,7 +23,7 @@ namespace TBSExam.Data.Repositories.Repository
             return _examContextConnection.Folios.First(f => f.disponible == disponible);
         }
 
-        public async Task<Folio> GetByFolio(string? id)
+        public async Task<Folio?> GetByFolio(string? id)
         {
             return await _examContextConnection.Folios.FindAsync(id);
         }

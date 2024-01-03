@@ -18,14 +18,15 @@ namespace TBSExam.Data.Repositories.Repository
             return await _examContextConnection.Usuarios.Where(e => e.pedido.Count != 0).ToListAsync();
         }
 
-        public async Task<Usuario> Login(string username, string password)
+        public Usuario? Login(string username, string password)
         {
-            return await _examContextConnection.Usuarios.SingleOrDefaultAsync(c => c.nombreUsuario == username && c.usuPwd == password);
+            return _examContextConnection.Usuarios.SingleOrDefault(c => c.nombreUsuario == username && c.usuPwd == password);
         }
 
-        public async Task<List<ICollection<Pedido>>> ListMDAsync(int id)
+        public async Task<List<Pedido>> ListMDAsync(int id)
         {
-            var pedidos = await _examContextConnection.Usuarios.Where(e => e.usuario_id == id).Select(e => e.pedido).ToListAsync();
+            //var pedidos = await _examContextConnection.Usuarios.Where(e => e.usuario_id == id).Select(e => e.pedido).ToListAsync();
+            var pedidos = await _examContextConnection.Pedidos.Where(e => e.usuario_id == id).ToListAsync();
             return pedidos;
         }
     }
